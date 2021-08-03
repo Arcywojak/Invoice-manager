@@ -1,0 +1,8 @@
+.invoice-handler-container {
+    width: 100%;
+    ::ng-deep.mat-tab-labels {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}

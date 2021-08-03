@@ -1,0 +1,37 @@
+
+<fieldset>
+    <legend>Positions</legend>
+    <form (ngSubmit)="onSubmit()" class="position-form">
+        <mat-form-field>
+            <mat-label>Description</mat-label>
+            <input type="text" matInput [formControl]="descriptionFormControl">
+            <mat-error *ngIf="descriptionFormControl.invalid">
+                Description is required
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Net value</mat-label>
+            <input type="number" matInput [formControl]="netValueFormControl">
+            <mat-error *ngIf="netValueFormControl.invalid">
+                Net value is required
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>VAT tax</mat-label>
+            <input type="number" matInput [formControl]="vatTaxFormControl">
+            <mat-error *ngIf="vatTaxFormControl.invalid">
+                Net value is required
+            </mat-error>
+        </mat-form-field>
+
+        <button color="primary" mat-raised-button>
+            Add a position
+        </button>
+    </form>
+
+    <app-edit-positions-table [positions]="positions">
+
+    </app-edit-positions-table>
+</fieldset>

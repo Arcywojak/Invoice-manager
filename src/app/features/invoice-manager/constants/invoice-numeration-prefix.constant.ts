@@ -1,0 +1,1 @@
+export const INVOICE_NUMBER_PREFIX = "Fs"

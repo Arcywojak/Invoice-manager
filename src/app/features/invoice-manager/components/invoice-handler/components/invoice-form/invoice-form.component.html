@@ -1,0 +1,39 @@
+<form class="invoice-form">
+    <h1>Creating an invoice</h1>
+
+    <mat-form-field>
+        <mat-label>Invoice number</mat-label>
+        <input matInput [formControl]="invoiceNumberFormControl">
+        <mat-error *ngIf="invoiceNumberFormControl.invalid">
+            Invoice number is required
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Full name of buyer</mat-label>
+        <input matInput [formControl]="sellerFullNameFormControl">
+        <mat-error *ngIf="sellerFullNameFormControl.invalid">
+            Thie field is required
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Full name of seller</mat-label>
+        <input matInput [formControl]="buyerFullNameFormControl">
+        <mat-error *ngIf="buyerFullNameFormControl.invalid">
+            The field is required
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>remark</mat-label>
+        <textarea cdkTextareaAutosize matInput [formControl]="remarkFormControl">
+
+        </textarea>
+    </mat-form-field>
+
+    <app-position-form [positions]="positionFormControl.value" (newPositionEmitter)="updatePositions($event)">
+
+    </app-position-form>
+
+</form>
