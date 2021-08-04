@@ -8,7 +8,10 @@
         </app-invoice-list>
     </mat-card>
     <mat-card>
-        <app-invoice-handler [selectedInvoice]="activeInvoice" [selectedIndex]="currentIndex">
+        <app-invoice-handler 
+        [selectedInvoice]="activeInvoice" 
+        [selectedIndex]="currentIndex" 
+        (selectedIndexRefresher)="updateSelectedIndex($event)">
             
         </app-invoice-handler>
     </mat-card>

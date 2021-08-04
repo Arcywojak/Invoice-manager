@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { INVOICE_NUMBER_PREFIX } from 'src/app/features/invoice-manager/constants/invoice-numeration-prefix.constant';
 import { InvoiceFormType } from 'src/app/features/invoice-manager/enums/invoice-form-type.enum';
 import { InvoiceStore } from 'src/app/features/invoice-manager/invoice.store';
@@ -14,7 +14,7 @@ import { InvoiceService } from 'src/app/features/invoice-manager/services/invoic
 })
 export class InvoiceFormComponent implements OnChanges, OnInit { 
 
-  @Input() set invoice(invoice: Invoice) {
+  @Input() set invoice(invoice: Invoice | null) {
     if(invoice && InvoiceFormType.EDIT) {
       this.currentInvoice = invoice;
       this.setFormValues(invoice);
@@ -30,35 +30,57 @@ export class InvoiceFormComponent implements OnChanges, OnInit {
   buyerFullNameFormControl = new FormControl('', Validators.required);
   positionFormControl = new FormControl([]);
 
+  invoiceForm = new FormGroup({
+    invoiceNumber: this.invoiceNumberFormControl,
+    remark: this.remarkFormControl,
+    sellerFullName: this.sellerFullNameFormControl,
+    buyerFullName: this.buyerFullNameFormControl,
+    positions: this.positionFormControl
+  })
+
 
   constructor(private invoiceService: InvoiceService, private invoiceStore: InvoiceStore) { }
 
   ngOnChanges() {
-    console.log("INVOICE FORM RE-RENDERED")
-    const currentInvoiceNumber = this.invoiceService.getNextInvoiceNumber();
-    this.invoiceNumberFormControl.setValue(`${INVOICE_NUMBER_PREFIX}${currentInvoiceNumber}`);
+    //console.log("INVOICE FORM RE-RENDERED")
+    //const currentInvoiceNumber = this.invoiceService.getNextInvoiceNumber();
+    //this.invoiceNumberFormControl.setValue(`${INVOICE_NUMBER_PREFIX}${currentInvoiceNumber}`);
   }
 
   ngOnInit() {
-    const currentInvoiceNumber = this.invoiceService.getNextInvoiceNumber();
-    this.invoiceNumberFormControl.setValue(`${INVOICE_NUMBER_PREFIX}${currentInvoiceNumber}`);
+
   }
 
   updatePositions(positions: InvoicePosition[]) {
     this.positionFormControl.setValue(positions);
   }
 
-  setFormValues(invoice: Invoice) {
-    this.invoiceNumberFormControl.setValue(invoice.number);
-    this.remarkFormControl.setValue(invoice.remark);
-    this.sellerFullNameFormControl.setValue(invoice.sellerFullName);
-    this.buyerFullNameFormControl.setValue(invoice.buyerFullName);
-    this.positionFormControl.setValue(invoice.positions);
+  setFormValues(invoice?: Invoice): void {
+    if(invoice) {
+      this.invoiceNumberFormControl.setValue(invoice.number);
+      this.remarkFormControl.setValue(invoice.remark);
+      this.sellerFullNameFormControl.setValue(invoice.sellerFullName);
+      this.buyerFullNameFormControl.setValue(invoice.buyerFullName);
+      this.positionFormControl.setValue(invoice.positions);
+      return;
+    }
+    this.invoiceNumberFormControl.setValue('');
+    this.remarkFormControl.setValue('');
+    this.sellerFullNameFormControl.setValue('');
+    this.buyerFullNameFormControl.setValue('');
+    this.positionFormControl.setValue([]);
+  }
+
+  resetForm(): void {
+    this.setFormValues();
+    Object.keys(this.invoiceForm.controls).forEach(key => {
+      this.invoiceForm?.get(key)?.setErrors(null);
+    });
   }
 
   onSubmit() {
     const newInvoice = {
-      id: this.invoice?.id,
+      id: this.currentInvoice?.id,
       number: this.invoiceNumberFormControl.value,
       remark: this.remarkFormControl.value,
       sellerFullName: this.sellerFullNameFormControl.value,
@@ -83,12 +105,20 @@ export class InvoiceFormComponent implements OnChanges, OnInit {
 
   createInvoice(invoice: Invoice) {
     this.invoiceService.createInvoice(invoice);
+    this.resetForm();
     this.invoiceStore.refreshInvoices();
+    this.setNewInvoiceNumber();
   }
 
   editInvoice(invoice: Invoice) {
     this.invoiceService.updateInvoice(invoice);
     this.invoiceStore.refreshInvoices();
+    this.invoiceForm.markAsUntouched();
+  }
+
+  setNewInvoiceNumber() {
+    const currentInvoiceNumber = this.invoiceService.getNextInvoiceNumber();
+    this.invoiceNumberFormControl.setValue(`${INVOICE_NUMBER_PREFIX}${currentInvoiceNumber}`);
   }
 
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 import { InvoiceHandlerTabIndex } from '../../enums/invoice-handler-tab-index';
 import { Invoice } from '../../models/invoice.model';
 
@@ -7,14 +8,22 @@ import { Invoice } from '../../models/invoice.model';
   templateUrl: './invoice-handler.component.html',
   styleUrls: ['./invoice-handler.component.scss']
 })
-export class InvoiceHandlerComponent implements OnInit {
+export class InvoiceHandlerComponent implements OnChanges {
 
   @Input() selectedInvoice: Invoice | null = null;
-  @Input() selectedIndex: InvoiceHandlerTabIndex = InvoiceHandlerTabIndex.CREATE; 
+  @Input() selectedIndex: InvoiceHandlerTabIndex = InvoiceHandlerTabIndex.CREATE;
+  @Output() selectedIndexRefresher = new EventEmitter<InvoiceHandlerTabIndex>()
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnChanges(e:any): void {
+
+  }
+
+  onTabChanged(change: MatTabChangeEvent) {
+    if(change.index !== this.selectedIndex) {
+      this.selectedIndexRefresher.emit(change.index);
+    }
   }
 
 }

@@ -25,9 +25,8 @@ export class InvoiceService {
 
     createInvoice(invoice: Invoice) {
 
-        console.log("I CREATE", invoice)
-
         invoice.id = getRandomId();
+        invoice.createdAt = Date.now();
         const invoices = this.getInvoices();
         const newInvoices = [...invoices, invoice];
         this.localStorageServiceForInvoices.setData(INVOICES_IN_LOCAL_STORAGE_NAME, newInvoices);
@@ -35,6 +34,7 @@ export class InvoiceService {
     }
 
     updateInvoice(invoice: Invoice) {
+        console.log("I update")
         const invoices: Invoice[] = this.getInvoices();
         const newInvoices = invoices.map(el => {
             //we want to find the older version of the invoice and replace it
@@ -43,7 +43,7 @@ export class InvoiceService {
             }
             return el;
         })
-
+        return;
         this.localStorageServiceForInvoices.setData(INVOICES_IN_LOCAL_STORAGE_NAME, newInvoices);
     }
 
@@ -74,6 +74,9 @@ export class InvoiceService {
         const invoices = this.getInvoices();
         const isAnyWithTheSameNumber = invoices.some(el => {
             //we also check id because we want to find two different invoices with the same number
+            if(el.number === invoice.number && el.id !== invoice.id) {
+                console.log(el, invoice)
+            }
             return (el.number === invoice.number && el.id !== invoice.id);
         });
 

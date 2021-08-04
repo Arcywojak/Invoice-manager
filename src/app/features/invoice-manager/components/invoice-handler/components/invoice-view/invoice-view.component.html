@@ -1,1 +1,24 @@
-<p>invoice-view works!</p>
+<div class="invoice-view-container" *ngIf="invoice">
+    <h2>Invoice details</h2>
+    <p class="invoice-info">
+        <b>Number:</b> {{invoice.number}}
+    </p>
+    <p class="invoice-info">
+        <b>creation date:</b> {{invoice.createdAt}}
+    </p>
+    <p class="invoice-info">
+        <b>Seller:</b> {{invoice.sellerFullName}}
+    </p>
+    <p class="invoice-info">
+        <b>Buyer:</b> {{invoice.buyerFullName}}
+    </p>
+    <p class="invoice-info" *ngIf="invoice.remark">
+        <b>remark:</b> {{invoice.remark}}
+    </p>
+
+    <app-invoice-position-table [positions]="invoice.positions"></app-invoice-position-table>
+
+</div>
+<div class="no-invoice"  *ngIf="!invoice">
+    <h1>At first select an invoice to view the details</h1>
+</div>

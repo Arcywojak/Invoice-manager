@@ -5,9 +5,7 @@
         <mat-form-field>
             <mat-label>Description</mat-label>
             <input type="text" matInput [formControl]="descriptionFormControl">
-            <mat-error *ngIf="descriptionFormControl.invalid">
-                Description is required
-            </mat-error>
+           
         </mat-form-field>
 
         <mat-form-field>
@@ -31,7 +29,7 @@
         </button>
     </form>
 
-    <app-edit-positions-table [positions]="positions">
+    <app-edit-positions-table [positions]="positions" (idToDeleteEmitter)="removePosition($event)">
 
     </app-edit-positions-table>
 </fieldset>

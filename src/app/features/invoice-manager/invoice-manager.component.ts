@@ -3,7 +3,6 @@ import { InvoiceHandlerTabIndex } from './enums/invoice-handler-tab-index';
 import { InvoiceStore } from './invoice.store';
 import { ActiveInvoiceData } from './models/active-invoice-data.model';
 import { Invoice } from './models/invoice.model';
-import { InvoiceService } from './services/invoice.service';
 
 @Component({
   selector: 'app-invoice-manager',
@@ -16,7 +15,7 @@ export class InvoiceManagerComponent implements OnInit {
   activeInvoice: Invoice | null = null;
   currentIndex: InvoiceHandlerTabIndex = InvoiceHandlerTabIndex.CREATE;
 
-  constructor(private invoiceStore: InvoiceStore, private invoiceService: InvoiceService) { }
+  constructor(private invoiceStore: InvoiceStore) { }
 
   ngOnInit(): void {
     this.invoiceStore.refreshInvoices();
@@ -30,6 +29,10 @@ export class InvoiceManagerComponent implements OnInit {
   setActiveInvoice(data: ActiveInvoiceData) {
     this.activeInvoice = data.invoice;
     this.currentIndex = data.tabIndex;
+  }
+
+  updateSelectedIndex(index: InvoiceHandlerTabIndex) {
+    this.currentIndex = index;
   }
 
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Invoice } from 'src/app/features/invoice-manager/models/invoice.model';
 
 @Component({
   selector: 'app-invoice-edit',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./invoice-edit.component.scss']
 })
 export class InvoiceEditComponent implements OnInit {
+
+  @Input() invoice: Invoice | null = null;
 
   constructor() { }
 

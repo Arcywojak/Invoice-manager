@@ -5,7 +5,7 @@ import { Invoice } from "./models/invoice.model";
 import { InvoiceService } from "./services/invoice.service";
 
 @Injectable({
-    providedIn: InvoiceManagerModule,
+    providedIn: "root",
 })
 
 export class InvoiceStore {

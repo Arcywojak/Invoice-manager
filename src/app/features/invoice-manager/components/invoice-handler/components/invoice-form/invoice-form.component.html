@@ -1,5 +1,7 @@
 <form (ngSubmit)="onSubmit()" class="invoice-form">
-    <h1>Creating an invoice</h1>
+
+    <h1 *ngIf="formType === 0">Creating an invoice</h1>
+    <h1 *ngIf="formType === 1">Editing the invoice</h1>
 
     <mat-form-field>
         <mat-label>Invoice number</mat-label>
@@ -35,13 +37,22 @@
     <app-position-form [positions]="positionFormControl.value" (newPositionEmitter)="updatePositions($event)">
 
     </app-position-form>
-
-    <button class="submit-button" mat-raised-button color="accent">
-        Create
-    </button>
-
+    
     <mat-error *ngIf="errorMessageDuringSubmit">
         {{errorMessageDuringSubmit}}
     </mat-error>
+
+    <div class="buttons">
+        <button [disabled]="invoiceForm.invalid || invoiceForm.untouched" class="submit-button" mat-raised-button color="accent">
+            <ng-container *ngIf="formType === 0">
+                Create
+            </ng-container>
+            <ng-container *ngIf="formType === 1">
+                Edit
+            </ng-container>
+        </button>
+    
+        <app-delete-invoice-button *ngIf="formType === 1" id="invoice?.id || ''"></app-delete-invoice-button>
+    </div>
 
 </form>

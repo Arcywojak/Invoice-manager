@@ -1,16 +1,19 @@
-<mat-tab-group class="invoice-handler-container" [selectedIndex]="selectedIndex">
+<mat-tab-group 
+class="invoice-handler-container" 
+[selectedIndex]="selectedIndex" 
+(selectedTabChange)="onTabChanged($event)">
     <mat-tab label="create">
         <app-invoice-create>
 
         </app-invoice-create>
     </mat-tab>
     <mat-tab label="edit">
-         <app-invoice-edit>
+         <app-invoice-edit [invoice]="selectedInvoice">
             
         </app-invoice-edit>
     </mat-tab>
     <mat-tab label="view">
-        <app-invoice-view>
+        <app-invoice-view [invoice]="selectedInvoice">
             
         </app-invoice-view>
     </mat-tab>

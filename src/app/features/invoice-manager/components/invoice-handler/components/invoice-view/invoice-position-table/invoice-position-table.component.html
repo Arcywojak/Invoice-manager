@@ -1,12 +1,12 @@
-<table *ngIf="positions && positions.length > 0" mat-table [dataSource]="positions" class="mat-elevation-z8 edit-positions-table">
+<table *ngIf="positions && positions.length > 0" mat-table [dataSource]="positions" class="mat-elevation-z8 invoice-position-table">
 
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef> Description </th>
       <td mat-cell *matCellDef="let element"> {{element.description}} </td>
     </ng-container>
   
-    <ng-container matColumnDef="netValue"> 
-      <th mat-header-cell *matHeaderCellDef> Net value </th>
+    <ng-container matColumnDef="netValue">
+      <th mat-header-cell *matHeaderCellDef> NET </th>
       <td mat-cell *matCellDef="let element"> {{element | positionValue: 0}} </td>
     </ng-container>
   
@@ -15,14 +15,10 @@
       <td mat-cell *matCellDef="let element"> {{element.vatTax}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="deleteColumn">
-      <th mat-header-cell *matHeaderCellDef>  </th>
-      <td mat-cell *matCellDef="let element">
-         <button mat-raised-button color="warn" (click)="emitIdToDelete(element.id)">
-           Delete
-          </button> 
-        </td>
-    </ng-container>
+    <ng-container matColumnDef="grossValue">
+        <th mat-header-cell *matHeaderCellDef> GROSS </th>
+        <td mat-cell *matCellDef="let element"> {{element | positionValue: 1}} </td>
+      </ng-container>
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

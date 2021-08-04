@@ -1,0 +1,12 @@
+.confirm-action-dialog {
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.buttons-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    gap: 12px;
+}

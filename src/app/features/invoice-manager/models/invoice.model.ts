@@ -6,5 +6,6 @@ export interface Invoice {
     remark?: string,
     sellerFullName: string,
     buyerFullName: string,
-    positions: InvoicePosition[]
+    positions: InvoicePosition[],
+    createdAt: number
 }

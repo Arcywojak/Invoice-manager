@@ -36,4 +36,10 @@ export class PositionFormComponent {
     this.newPositionEmitter.emit([...this.positions, newPosition]);
   }
 
+  removePosition(id: string) {
+    const newPositions = this.positions.filter(el => el.id !== id)
+
+    this.newPositionEmitter.emit(newPositions);
+  }
+
 }

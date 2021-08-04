@@ -10,11 +10,15 @@ export class EditPositionsTableComponent implements OnInit {
   @Input() positions: InvoicePosition[] = [];
   @Output() idToDeleteEmitter = new EventEmitter();
 
-  displayedColumns: string[] = ['description', 'netValue', 'vatTax'];
+  displayedColumns: string[] = ['description', 'netValue', 'vatTax', 'deleteColumn'];
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  emitIdToDelete(id: string) {
+    this.idToDeleteEmitter.emit(id);
   }
 
 }

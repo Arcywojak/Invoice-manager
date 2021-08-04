@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PositionFormComponent } from './components/invoice-handler/components/invoice-form/components/position-form/position-form.component';
 import { EditPositionsTableComponent } from './components/invoice-handler/components/invoice-form/components/edit-positions-table/edit-positions-table.component';
 import { SingleInvoiceComponent } from './components/invoice-list/single-invoice/single-invoice.component';
+import { InvoicePositionTableComponent } from './components/invoice-handler/components/invoice-view/invoice-position-table/invoice-position-table.component';
+import { InvoiceSharedModule } from "./shared/invoice-shared.module";
 
 @NgModule({
     declarations: [
@@ -23,12 +25,17 @@ import { SingleInvoiceComponent } from './components/invoice-list/single-invoice
       InvoiceFormComponent,
       PositionFormComponent,
       EditPositionsTableComponent,
-      SingleInvoiceComponent
+      SingleInvoiceComponent,
+      InvoicePositionTableComponent
+  ],
+  entryComponents: [
+    InvoiceFilterComponent
   ],
   imports: [
     MaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    InvoiceSharedModule
   ],
   exports: [
       InvoiceListComponent,

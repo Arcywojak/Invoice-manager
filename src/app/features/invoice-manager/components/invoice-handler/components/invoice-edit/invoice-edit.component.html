@@ -1,1 +1,7 @@
-<p>invoice-edit works!</p>
+<app-invoice-form [formType]="1" [invoice]="invoice" *ngIf="invoice">
+
+</app-invoice-form>
+
+<div class="no-invoice" *ngIf="!invoice">
+    <h1>At first select an Invoice to edit.</h1>
+</div>
