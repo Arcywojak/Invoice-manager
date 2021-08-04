@@ -26,7 +26,6 @@ export class PositionFormComponent {
   constructor() { }
 
   onSubmit() {
-    console.log("SUBIMT")
     const newPosition = {
       id: getRandomId(),
       description: this.descriptionFormControl.value,

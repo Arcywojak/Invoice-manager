@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
+import { InvoiceManagerModule } from "./invoice-manager.module";
 import { Invoice } from "./models/invoice.model";
 import { InvoiceService } from "./services/invoice.service";
 
 @Injectable({
-    providedIn: "root",
+    providedIn: InvoiceManagerModule,
 })
 
 export class InvoiceStore {
@@ -18,7 +19,8 @@ export class InvoiceStore {
         return this._invoices.getValue();
     }
 
-    setInvoices(invoices: Invoice[]) {
+    refreshInvoices() {
+        const invoices = this.invoiceService.getInvoices();
         this._invoices.next(invoices);
     }
 }

@@ -3,12 +3,12 @@
         <app-invoice-filter>
 
         </app-invoice-filter>
-        <app-invoice-list>
+        <app-invoice-list [invoices]="invoices" (activeInvoiceEmitter)="setActiveInvoice($event)">
 
         </app-invoice-list>
     </mat-card>
     <mat-card>
-        <app-invoice-handler>
+        <app-invoice-handler [selectedInvoice]="activeInvoice" [selectedIndex]="currentIndex">
             
         </app-invoice-handler>
     </mat-card>

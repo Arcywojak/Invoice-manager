@@ -1,0 +1,14 @@
+.invoice-card {
+    background-color: lighten(lightgray, 13%);
+    display: grid;
+    grid-template-columns: calc(100% - 80px) 80px;
+
+    &__inner-element {
+        &.second {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 12px;
+        }
+    }
+}

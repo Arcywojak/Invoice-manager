@@ -5,12 +5,12 @@ import { InvoiceFilterComponent } from './components/invoice-filter/invoice-filt
 import { InvoiceViewComponent } from './components/invoice-handler/components/invoice-view/invoice-view.component';
 import { InvoiceCreateComponent } from './components/invoice-handler/components/invoice-create/invoice-create.component';
 import { InvoiceEditComponent } from './components/invoice-handler/components/invoice-edit/invoice-edit.component';
-import { InvoiceManipulateComponent } from './components/invoice-handler/components/invoice-manipulate/invoice-manipulate.component';
 import { MaterialModule } from "src/app/material.module";
 import { InvoiceFormComponent } from './components/invoice-handler/components/invoice-form/invoice-form.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PositionFormComponent } from './components/invoice-handler/components/invoice-form/components/position-form/position-form.component';
 import { EditPositionsTableComponent } from './components/invoice-handler/components/invoice-form/components/edit-positions-table/edit-positions-table.component';
+import { SingleInvoiceComponent } from './components/invoice-list/single-invoice/single-invoice.component';
 
 @NgModule({
     declarations: [
@@ -20,10 +20,10 @@ import { EditPositionsTableComponent } from './components/invoice-handler/compon
       InvoiceViewComponent,
       InvoiceCreateComponent,
       InvoiceEditComponent,
-      InvoiceManipulateComponent,
       InvoiceFormComponent,
       PositionFormComponent,
-      EditPositionsTableComponent
+      EditPositionsTableComponent,
+      SingleInvoiceComponent
   ],
   imports: [
     MaterialModule,

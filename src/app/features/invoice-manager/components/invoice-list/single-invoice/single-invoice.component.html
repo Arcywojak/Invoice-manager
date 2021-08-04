@@ -1,0 +1,35 @@
+<mat-card class="invoice-card">
+    <div class="invoice-card__inner-element first">
+        <div>
+            <h3><b>{{invoice.number}}</b></h3>
+        </div>
+        <div>
+            <p>
+                <i>
+                    <b>From:</b>
+                    {{invoice.sellerFullName}}
+                </i>
+            </p>
+            <p>
+                <i>
+                    <b>to:</b>
+                    {{invoice.buyerFullName}}
+                </i>
+            </p>
+        </div>
+        <div>
+            <p>
+                <i>
+                    <b>Positions:</b>
+                    {{invoice.positions.length}}
+                </i>
+            </p>
+        </div>
+    </div>
+    <div class="invoice-card__inner-element second">
+        <button mat-raised-button color="primary" (click)="emitActiveInvoiceData(2)">View</button>
+        <button mat-raised-button color="accent" (click)="emitActiveInvoiceData(1)">Edit</button>
+        <button mat-raised-button color="warn">Delete</button>
+    </div>
+
+</mat-card> 

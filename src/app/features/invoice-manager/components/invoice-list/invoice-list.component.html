@@ -1,1 +1,5 @@
-<p>invoice-list works!</p>
+<div class="invoice-list">
+    <app-single-invoice *ngFor="let invoice of invoices" [invoice]="invoice" (currentInvoiceData)=sendActiveInvoiceToParent($event)>
+
+    </app-single-invoice>
+</div>

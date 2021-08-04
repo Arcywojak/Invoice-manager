@@ -26,7 +26,7 @@
             </mat-error>
         </mat-form-field>
 
-        <button color="primary" mat-raised-button>
+        <button class="position-submit-button" [disabled]="positionForm.invalid" color="primary" mat-raised-button>
             Add a position
         </button>
     </form>

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { InvoiceHandlerTabIndex } from '../../enums/invoice-handler-tab-index';
 import { Invoice } from '../../models/invoice.model';
 
 @Component({
@@ -9,6 +10,7 @@ import { Invoice } from '../../models/invoice.model';
 export class InvoiceHandlerComponent implements OnInit {
 
   @Input() selectedInvoice: Invoice | null = null;
+  @Input() selectedIndex: InvoiceHandlerTabIndex = InvoiceHandlerTabIndex.CREATE; 
 
   constructor() { }
 

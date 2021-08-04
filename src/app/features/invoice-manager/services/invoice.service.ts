@@ -1,18 +1,18 @@
 import { Injectable } from "@angular/core";
 import { LocalStorageService } from "src/app/shared/localStorage.service";
 import { INVOICES_IN_LOCAL_STORAGE_NAME, INVOICE_NUMBER_IN_LOCAL_STORAGE_NAME } from "../constants/invoice-local-storage-names.constant";
-import { InvoiceManagerModule } from "../invoice-manager.module";
+import { InvoiceValidationResult } from "../models/invoice-validation-result";
 import { Invoice } from "../models/invoice.model";
 import { getRandomId } from "../utils/generate-random-id";
 
 @Injectable({
-    providedIn: InvoiceManagerModule,
+    providedIn: "root",
 })
 export class InvoiceService {
 
     constructor(
         private localStorageServiceForInvoices: LocalStorageService<Invoice[]>,
-        private localStorageServiceForNumber: LocalStorageService<number>
+        private localStorageServiceForNumber: LocalStorageService<number>,
         ) { }
 
     getInvoices(): Invoice[] {
@@ -24,10 +24,14 @@ export class InvoiceService {
     }
 
     createInvoice(invoice: Invoice) {
+
+        console.log("I CREATE", invoice)
+
         invoice.id = getRandomId();
         const invoices = this.getInvoices();
         const newInvoices = [...invoices, invoice];
         this.localStorageServiceForInvoices.setData(INVOICES_IN_LOCAL_STORAGE_NAME, newInvoices);
+        this.setNextInvoiceNumber();
     }
 
     updateInvoice(invoice: Invoice) {
@@ -57,5 +61,32 @@ export class InvoiceService {
         const currentNumber = this.getNextInvoiceNumber();
         const nextNumber = currentNumber + 1;
         return this.localStorageServiceForNumber.setData(INVOICE_NUMBER_IN_LOCAL_STORAGE_NAME, nextNumber);
+    }
+
+    validate(invoice: Invoice): InvoiceValidationResult {
+        const isAnyPosition = invoice.positions.length > 0;
+        if(!isAnyPosition) {
+            return {
+                isError: true,
+                message: "Add at least one position to the invoice"
+            }
+        }
+        const invoices = this.getInvoices();
+        const isAnyWithTheSameNumber = invoices.some(el => {
+            //we also check id because we want to find two different invoices with the same number
+            return (el.number === invoice.number && el.id !== invoice.id);
+        });
+
+        if(isAnyWithTheSameNumber) {
+            return {
+                isError: true,
+                message: `Invoice with number ${invoice.number} already exists`
+            }
+        }
+
+        return {
+            isError: false,
+            message: ""
+        }
     }
 }

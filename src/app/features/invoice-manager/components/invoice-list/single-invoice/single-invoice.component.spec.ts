@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InvoiceManipulateComponent } from './invoice-manipulate.component';
+import { SingleInvoiceComponent } from './single-invoice.component';
 
-describe('InvoiceManipulateComponent', () => {
-  let component: InvoiceManipulateComponent;
-  let fixture: ComponentFixture<InvoiceManipulateComponent>;
+describe('SingleInvoiceComponent', () => {
+  let component: SingleInvoiceComponent;
+  let fixture: ComponentFixture<SingleInvoiceComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InvoiceManipulateComponent ]
+      declarations: [ SingleInvoiceComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InvoiceManipulateComponent);
+    fixture = TestBed.createComponent(SingleInvoiceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

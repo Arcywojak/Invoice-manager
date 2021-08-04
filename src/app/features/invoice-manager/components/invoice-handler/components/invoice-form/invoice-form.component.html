@@ -1,4 +1,4 @@
-<form class="invoice-form">
+<form (ngSubmit)="onSubmit()" class="invoice-form">
     <h1>Creating an invoice</h1>
 
     <mat-form-field>
@@ -35,5 +35,13 @@
     <app-position-form [positions]="positionFormControl.value" (newPositionEmitter)="updatePositions($event)">
 
     </app-position-form>
+
+    <button class="submit-button" mat-raised-button color="accent">
+        Create
+    </button>
+
+    <mat-error *ngIf="errorMessageDuringSubmit">
+        {{errorMessageDuringSubmit}}
+    </mat-error>
 
 </form>
