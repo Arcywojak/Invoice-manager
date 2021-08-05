@@ -1,5 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { InvoiceHandlerTabIndex } from '../../enums/invoice-handler-tab-index';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { ActiveInvoiceData } from '../../models/active-invoice-data.model';
 import { Invoice } from '../../models/invoice.model';
 
@@ -9,7 +8,7 @@ import { Invoice } from '../../models/invoice.model';
   styleUrls: ['./invoice-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InvoiceListComponent implements OnInit {
+export class InvoiceListComponent {
 
   @Input() invoices: Invoice[] = [];
 
@@ -18,9 +17,6 @@ export class InvoiceListComponent implements OnInit {
   activeInvoiceId = "";
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
   sendActiveInvoiceToParent(data: ActiveInvoiceData) {
     this.activeInvoiceId = data.invoice.id;

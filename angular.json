@@ -105,9 +105,21 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "invoice-manager"
+  "defaultProject": "invoice-manager",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }

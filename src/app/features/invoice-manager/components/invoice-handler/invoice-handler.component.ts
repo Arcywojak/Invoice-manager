@@ -1,4 +1,4 @@
-import { Component, OnChanges, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { InvoiceHandlerTabIndex } from '../../enums/invoice-handler-tab-index';
 import { Invoice } from '../../models/invoice.model';
@@ -9,17 +9,13 @@ import { Invoice } from '../../models/invoice.model';
   styleUrls: ['./invoice-handler.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InvoiceHandlerComponent implements OnChanges {
+export class InvoiceHandlerComponent {
 
   @Input() selectedInvoice: Invoice | null = null;
   @Input() selectedIndex: InvoiceHandlerTabIndex = InvoiceHandlerTabIndex.CREATE;
   @Output() selectedIndexRefresher = new EventEmitter<InvoiceHandlerTabIndex>()
 
   constructor() { }
-
-  ngOnChanges(e:any): void {
-
-  }
 
   onTabChanged(change: MatTabChangeEvent) {
     if(change.index !== this.selectedIndex) {

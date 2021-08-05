@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Invoice } from 'src/app/features/invoice-manager/models/invoice.model';
 
 @Component({
@@ -7,13 +7,10 @@ import { Invoice } from 'src/app/features/invoice-manager/models/invoice.model';
   styleUrls: ['./invoice-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InvoiceEditComponent implements OnInit {
+export class InvoiceEditComponent {
 
   @Input() invoice: Invoice | null = null;
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }
