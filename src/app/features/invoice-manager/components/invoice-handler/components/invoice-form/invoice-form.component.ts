@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { INVOICE_NUMBER_PREFIX } from 'src/app/features/invoice-manager/constants/invoice-numeration-prefix.constant';
 import { InvoiceFormType } from 'src/app/features/invoice-manager/enums/invoice-form-type.enum';
@@ -10,7 +10,8 @@ import { InvoiceService } from 'src/app/features/invoice-manager/services/invoic
 @Component({
   selector: 'app-invoice-form',
   templateUrl: './invoice-form.component.html',
-  styleUrls: ['./invoice-form.component.scss']
+  styleUrls: ['./invoice-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InvoiceFormComponent implements OnChanges, OnInit { 
 
@@ -48,7 +49,7 @@ export class InvoiceFormComponent implements OnChanges, OnInit {
   }
 
   ngOnInit() {
-
+    this.setNewInvoiceNumber();
   }
 
   updatePositions(positions: InvoicePosition[]) {

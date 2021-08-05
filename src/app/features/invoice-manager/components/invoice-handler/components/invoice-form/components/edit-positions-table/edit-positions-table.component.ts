@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { InvoicePosition } from 'src/app/features/invoice-manager/models/invoice-position.model';
 
 @Component({
   selector: 'app-edit-positions-table',
   templateUrl: './edit-positions-table.component.html',
-  styleUrls: ['./edit-positions-table.component.scss']
+  styleUrls: ['./edit-positions-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditPositionsTableComponent implements OnInit {
   @Input() positions: InvoicePosition[] = [];

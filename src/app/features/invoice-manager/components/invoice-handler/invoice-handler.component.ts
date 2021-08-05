@@ -1,4 +1,4 @@
-import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnChanges, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { InvoiceHandlerTabIndex } from '../../enums/invoice-handler-tab-index';
 import { Invoice } from '../../models/invoice.model';
@@ -6,7 +6,8 @@ import { Invoice } from '../../models/invoice.model';
 @Component({
   selector: 'app-invoice-handler',
   templateUrl: './invoice-handler.component.html',
-  styleUrls: ['./invoice-handler.component.scss']
+  styleUrls: ['./invoice-handler.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InvoiceHandlerComponent implements OnChanges {
 

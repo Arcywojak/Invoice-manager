@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { InvoicePosition } from 'src/app/features/invoice-manager/models/invoice-position.model';
 import { getRandomId } from 'src/app/features/invoice-manager/utils/generate-random-id';
@@ -6,7 +6,8 @@ import { getRandomId } from 'src/app/features/invoice-manager/utils/generate-ran
 @Component({
   selector: 'app-position-form',
   templateUrl: './position-form.component.html',
-  styleUrls: ['./position-form.component.scss']
+  styleUrls: ['./position-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PositionFormComponent {
 
