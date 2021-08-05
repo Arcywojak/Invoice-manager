@@ -4,7 +4,7 @@
         <b>Number:</b> {{invoice.number}}
     </p>
     <p class="invoice-info">
-        <b>creation date:</b> {{invoice.createdAt}}
+        <b>creation date:</b> {{invoice.createdAt | dateFromMiliseconds}}
     </p>
     <p class="invoice-info">
         <b>Seller:</b> {{invoice.sellerFullName}}

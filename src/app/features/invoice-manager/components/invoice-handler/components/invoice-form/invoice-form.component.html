@@ -43,7 +43,7 @@
     </mat-error>
 
     <div class="buttons">
-        <button [disabled]="invoiceForm.invalid || invoiceForm.untouched" class="submit-button" mat-raised-button color="accent">
+        <button [disabled]="invoiceForm.invalid || invoiceForm.pristine" class="submit-button" mat-raised-button color="accent">
             <ng-container *ngIf="formType === 0">
                 Create
             </ng-container>
@@ -52,7 +52,7 @@
             </ng-container>
         </button>
     
-        <app-delete-invoice-button *ngIf="formType === 1" id="invoice?.id || ''"></app-delete-invoice-button>
+        <app-delete-invoice-button *ngIf="formType === 1" [id]="invoice?.id || ''"></app-delete-invoice-button>
     </div>
 
 </form>

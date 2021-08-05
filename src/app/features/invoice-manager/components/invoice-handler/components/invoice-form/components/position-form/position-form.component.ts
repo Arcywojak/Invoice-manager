@@ -27,20 +27,32 @@ export class PositionFormComponent {
   constructor() { }
 
   onSubmit() {
-    const newPosition = {
-      id: getRandomId(),
-      description: this.descriptionFormControl.value,
-      netValue: this.netValueFormControl.value as Number,
-      vatTax: this.vatTaxFormControl.value
-    } as InvoicePosition
+    const newPosition = this.createNewPosition();
 
+    this.resetForm();
     this.newPositionEmitter.emit([...this.positions, newPosition]);
   }
 
   removePosition(id: string) {
-    const newPositions = this.positions.filter(el => el.id !== id)
+    const newPositions = this.positions.filter(el => el.id !== id);
 
     this.newPositionEmitter.emit(newPositions);
+  }
+
+  resetForm() {
+    this.positionForm.reset();
+    Object.keys(this.positionForm.controls).forEach(key => {
+      this.positionForm.get(key)?.setErrors(null);
+    });
+  }
+
+  createNewPosition() {
+    return {
+      id: getRandomId(),
+      description: this.descriptionFormControl.value,
+      netValue: this.netValueFormControl.value as Number,
+      vatTax: this.vatTaxFormControl.value
+    } as InvoicePosition;
   }
 
 }

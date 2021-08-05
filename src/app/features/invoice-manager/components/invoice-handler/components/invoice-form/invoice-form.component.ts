@@ -1,11 +1,13 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewChild, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { INVOICE_NUMBER_PREFIX } from 'src/app/features/invoice-manager/constants/invoice-numeration-prefix.constant';
 import { InvoiceFormType } from 'src/app/features/invoice-manager/enums/invoice-form-type.enum';
 import { InvoiceStore } from 'src/app/features/invoice-manager/invoice.store';
 import { InvoicePosition } from 'src/app/features/invoice-manager/models/invoice-position.model';
 import { Invoice } from 'src/app/features/invoice-manager/models/invoice.model';
 import { InvoiceService } from 'src/app/features/invoice-manager/services/invoice.service';
+import { PositionFormComponent } from './components/position-form/position-form.component';
 
 @Component({
   selector: 'app-invoice-form',
@@ -13,7 +15,7 @@ import { InvoiceService } from 'src/app/features/invoice-manager/services/invoic
   styleUrls: ['./invoice-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InvoiceFormComponent implements OnChanges, OnInit { 
+export class InvoiceFormComponent implements OnInit { 
 
   @Input() set invoice(invoice: Invoice | null) {
     if(invoice && InvoiceFormType.EDIT) {
@@ -23,8 +25,13 @@ export class InvoiceFormComponent implements OnChanges, OnInit {
   }
   @Input() formType: InvoiceFormType = InvoiceFormType.CREATE;
 
+  @ViewChild(PositionFormComponent)
+  positionForm!: PositionFormComponent;
+
   errorMessageDuringSubmit = "";
   currentInvoice: Invoice | null = null;
+
+  //Form controls
   invoiceNumberFormControl = new FormControl('', Validators.required);
   remarkFormControl = new FormControl('');
   sellerFullNameFormControl = new FormControl('', Validators.required);
@@ -40,13 +47,10 @@ export class InvoiceFormComponent implements OnChanges, OnInit {
   })
 
 
-  constructor(private invoiceService: InvoiceService, private invoiceStore: InvoiceStore) { }
-
-  ngOnChanges() {
-    //console.log("INVOICE FORM RE-RENDERED")
-    //const currentInvoiceNumber = this.invoiceService.getNextInvoiceNumber();
-    //this.invoiceNumberFormControl.setValue(`${INVOICE_NUMBER_PREFIX}${currentInvoiceNumber}`);
-  }
+  constructor(
+    private invoiceService: InvoiceService, 
+    private invoiceStore: InvoiceStore,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.setNewInvoiceNumber();
@@ -75,19 +79,12 @@ export class InvoiceFormComponent implements OnChanges, OnInit {
   resetForm(): void {
     this.setFormValues();
     Object.keys(this.invoiceForm.controls).forEach(key => {
-      this.invoiceForm?.get(key)?.setErrors(null);
+      this.invoiceForm.get(key)?.setErrors(null);
     });
   }
 
   onSubmit() {
-    const newInvoice = {
-      id: this.currentInvoice?.id,
-      number: this.invoiceNumberFormControl.value,
-      remark: this.remarkFormControl.value,
-      sellerFullName: this.sellerFullNameFormControl.value,
-      buyerFullName: this.buyerFullNameFormControl.value,
-      positions: this.positionFormControl.value
-    } as Invoice;
+    const newInvoice = this.createNewInvoice();
 
     const validationResult = this.invoiceService.validate(newInvoice);
 
@@ -95,17 +92,24 @@ export class InvoiceFormComponent implements OnChanges, OnInit {
       this.errorMessageDuringSubmit = validationResult.message;
       return;
     }
+    
+    //If earlier an error occured, now we want to clear it.
+    this.errorMessageDuringSubmit = "";
+    this.positionForm.resetForm();
 
     if(this.formType === InvoiceFormType.CREATE) {
       this.createInvoice(newInvoice);
       return;
     }
 
+    //There are no other cases so I do not put another if
+    //if this.formType === InvoiceFormType.EDIT...
     this.editInvoice(newInvoice);
   }
 
   createInvoice(invoice: Invoice) {
     this.invoiceService.createInvoice(invoice);
+    this.snackBar.open("Invoice has been created!", "SUCCESS", {duration: 2000})
     this.resetForm();
     this.invoiceStore.refreshInvoices();
     this.setNewInvoiceNumber();
@@ -113,8 +117,20 @@ export class InvoiceFormComponent implements OnChanges, OnInit {
 
   editInvoice(invoice: Invoice) {
     this.invoiceService.updateInvoice(invoice);
+    this.snackBar.open("Invoice has been edited!", "SUCCESS", {duration: 2000})
     this.invoiceStore.refreshInvoices();
-    this.invoiceForm.markAsUntouched();
+    this.invoiceForm.markAsPristine();
+  }
+
+  createNewInvoice() {
+    return {
+      id: this.currentInvoice?.id,
+      number: this.invoiceNumberFormControl.value,
+      remark: this.remarkFormControl.value,
+      sellerFullName: this.sellerFullNameFormControl.value,
+      buyerFullName: this.buyerFullNameFormControl.value,
+      positions: this.positionFormControl.value
+    } as Invoice;
   }
 
   setNewInvoiceNumber() {

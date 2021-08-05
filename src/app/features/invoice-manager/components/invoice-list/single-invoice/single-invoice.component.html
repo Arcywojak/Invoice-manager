@@ -20,8 +20,8 @@
         <div>
             <p>
                 <i>
-                    <b>Positions:</b>
-                    {{invoice.positions.length}}
+                    <b>Created at:</b>
+                    {{invoice.createdAt | dateFromMiliseconds}}
                 </i>
             </p>
         </div>
@@ -29,7 +29,7 @@
     <div class="invoice-card__inner-element second">
         <button mat-raised-button color="primary" (click)="emitActiveInvoiceData(2)">View</button>
         <button mat-raised-button color="accent" (click)="emitActiveInvoiceData(1)">Edit</button>
-        <app-delete-invoice-button id="invoice.id"></app-delete-invoice-button>
+        <app-delete-invoice-button [id]="invoice.id"></app-delete-invoice-button>
     </div>
 
 </mat-card> 
