@@ -22,7 +22,11 @@ export class InvoiceManagerComponent implements OnInit {
     this.invoiceStore.refreshInvoices();
 
     this.invoiceStore.$invoices.subscribe(data => {
-      console.log(data)
+      if(this.activeInvoice && this.wasActiveInvoiceDeleted(data)) {
+        console.log("NEW")
+        this.activeInvoice = null;
+      }
+
       this.invoices = data;
       this.filteredInvoices = data;
     })
@@ -41,4 +45,12 @@ export class InvoiceManagerComponent implements OnInit {
     this.filteredInvoices = invoices;
   }
 
+  wasActiveInvoiceDeleted(invoices: Invoice[]) {
+    const currentInvoiceId = this.activeInvoice?.id;
+
+    const isInvoicePresent = invoices.some(el => el.id === currentInvoiceId);
+
+    return !isInvoicePresent;
+  }
+ 
 }

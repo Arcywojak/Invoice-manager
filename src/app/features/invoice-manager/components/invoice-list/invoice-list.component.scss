@@ -1,4 +1,6 @@
 .invoice-list {
     display: grid;
     gap:12px;
+    max-height: calc(100vh - 160px);
+    overflow: auto;
 }

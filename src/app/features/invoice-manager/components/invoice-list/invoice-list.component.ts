@@ -11,9 +11,11 @@ import { Invoice } from '../../models/invoice.model';
 })
 export class InvoiceListComponent implements OnInit {
 
-  @Input() invoices!: Invoice[];
+  @Input() invoices: Invoice[] = [];
 
   @Output() activeInvoiceEmitter = new EventEmitter<ActiveInvoiceData>();
+
+  activeInvoiceId = "";
 
   constructor() { }
 
@@ -21,6 +23,7 @@ export class InvoiceListComponent implements OnInit {
   }
 
   sendActiveInvoiceToParent(data: ActiveInvoiceData) {
+    this.activeInvoiceId = data.invoice.id;
     this.activeInvoiceEmitter.emit(data);
   }
 

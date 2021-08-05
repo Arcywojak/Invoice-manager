@@ -10,8 +10,10 @@ import { Invoice } from '../../../models/invoice.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SingleInvoiceComponent {
+  
 
   @Input() invoice!: Invoice;
+  @Input() activeId = "";
   @Output() currentInvoiceData = new EventEmitter<ActiveInvoiceData>();
 
   constructor() { }

@@ -1,5 +1,13 @@
-<div class="invoice-list">
-    <app-single-invoice *ngFor="let invoice of invoices" [invoice]="invoice" (currentInvoiceData)=sendActiveInvoiceToParent($event)>
+<div class="invoice-list" *ngIf="invoices && invoices?.length">
+    <app-single-invoice 
+    *ngFor="let invoice of invoices" 
+    [invoice]="invoice" 
+    [activeId]="activeInvoiceId" 
+    (currentInvoiceData)=sendActiveInvoiceToParent($event)>
 
     </app-single-invoice>
+</div>
+
+<div class="no-invoice" *ngIf="!invoices || !invoices?.length">
+    <h1>No invoice found</h1>
 </div>

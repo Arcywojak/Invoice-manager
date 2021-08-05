@@ -1,4 +1,4 @@
-<mat-card class="invoice-card">
+<mat-card class="invoice-card" [ngClass]="{'active': activeId === invoice.id}">
     <div class="invoice-card__inner-element first">
         <div>
             <h3><b>{{invoice.number}}</b></h3>
