@@ -29,7 +29,7 @@ export class InvoiceFilterComponent implements OnInit {
     const inputValue = this.filterFormControl.value.toLowerCase();
 
     const filteredData = this.data.filter((element: Invoice) => {
-      //checking one-level-keys
+      //checking one-level-nested-props
       const doesAnyPropContainsInputValue = this.doesAnyPropContainsInputValue(element, inputValue)
 
       //checking nested descriptions
