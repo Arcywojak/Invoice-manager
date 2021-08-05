@@ -12,7 +12,7 @@ import { Invoice } from '../../../models/invoice.model';
 export class SingleInvoiceComponent {
 
   @Input() invoice!: Invoice;
-  @Output() currentInvoiceData = new EventEmitter<ActiveInvoiceData>()
+  @Output() currentInvoiceData = new EventEmitter<ActiveInvoiceData>();
 
   constructor() { }
 
@@ -20,7 +20,7 @@ export class SingleInvoiceComponent {
     this.currentInvoiceData.emit({
       tabIndex: index,
       invoice: this.invoice
-    })
+    });
   }
 
 }

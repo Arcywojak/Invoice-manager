@@ -1,10 +1,12 @@
 <div class="invoice-manager-container">
     <mat-card>
-        <app-invoice-filter>
+        <app-invoice-filter [data]="invoices" (filteredDataEmitter)="setFilteredInvoices($event)">
 
         </app-invoice-filter>
-        <app-invoice-list [invoices]="invoices" (activeInvoiceEmitter)="setActiveInvoice($event)">
 
+        <app-invoice-list 
+        [invoices]="filteredInvoices" 
+        (activeInvoiceEmitter)="setActiveInvoice($event)">
         </app-invoice-list>
     </mat-card>
     <mat-card>

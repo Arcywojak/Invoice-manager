@@ -12,6 +12,7 @@ import { Invoice } from './models/invoice.model';
 export class InvoiceManagerComponent implements OnInit {
   
   invoices: Invoice[] = [];
+  filteredInvoices: Invoice[] = [];
   activeInvoice: Invoice | null = null;
   currentIndex: InvoiceHandlerTabIndex = InvoiceHandlerTabIndex.CREATE;
 
@@ -23,6 +24,7 @@ export class InvoiceManagerComponent implements OnInit {
     this.invoiceStore.$invoices.subscribe(data => {
       console.log(data)
       this.invoices = data;
+      this.filteredInvoices = data;
     })
   }
 
@@ -33,6 +35,10 @@ export class InvoiceManagerComponent implements OnInit {
 
   updateSelectedIndex(index: InvoiceHandlerTabIndex) {
     this.currentIndex = index;
+  }
+
+  setFilteredInvoices(invoices: Invoice[]) {
+    this.filteredInvoices = invoices;
   }
 
 }
