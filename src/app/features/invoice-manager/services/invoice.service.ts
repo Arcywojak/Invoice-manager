@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { LocalStorageService } from "src/app/shared/localStorage.service";
 import { INVOICES_IN_LOCAL_STORAGE_NAME, INVOICE_NUMBER_IN_LOCAL_STORAGE_NAME } from "../constants/invoice-local-storage-names.constant";
-import { InvoiceValidationResult } from "../models/invoice-validation-result";
+import { InvoiceValidationResult } from "../models/invoice-validation-result.interface";
 import { Invoice } from "../models/invoice.model";
 import { getRandomId } from "../utils/generate-random-id";
 

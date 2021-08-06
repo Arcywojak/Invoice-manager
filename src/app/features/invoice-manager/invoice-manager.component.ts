@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { InvoiceHandlerTabIndex } from './enums/invoice-handler-tab-index';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { InvoiceHandlerTabIndex } from './enums/invoice-handler-tab-index.enum';
 import { InvoiceStore } from './invoice.store';
 import { ActiveInvoiceData } from './models/active-invoice-data.model';
 import { Invoice } from './models/invoice.model';
@@ -7,7 +7,8 @@ import { Invoice } from './models/invoice.model';
 @Component({
   selector: 'app-invoice-manager',
   templateUrl: './invoice-manager.component.html',
-  styleUrls: ['./invoice-manager.component.scss']
+  styleUrls: ['./invoice-manager.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InvoiceManagerComponent implements OnInit {
   
@@ -23,7 +24,6 @@ export class InvoiceManagerComponent implements OnInit {
 
     this.invoiceStore.$invoices.subscribe(data => {
       if(this.activeInvoice && this.wasActiveInvoiceDeleted(data)) {
-        console.log("NEW")
         this.activeInvoice = null;
       }
 

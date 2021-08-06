@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { InvoiceHandlerTabIndex } from '../../../enums/invoice-handler-tab-index';
+import { InvoiceHandlerTabIndex } from '../../../enums/invoice-handler-tab-index.enum';
 import { ActiveInvoiceData } from '../../../models/active-invoice-data.model';
 import { Invoice } from '../../../models/invoice.model';
 

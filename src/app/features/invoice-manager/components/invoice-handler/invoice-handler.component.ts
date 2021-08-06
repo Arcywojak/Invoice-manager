@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { InvoiceHandlerTabIndex } from '../../enums/invoice-handler-tab-index';
+import { InvoiceHandlerTabIndex } from '../../enums/invoice-handler-tab-index.enum';
 import { Invoice } from '../../models/invoice.model';
 
 @Component({

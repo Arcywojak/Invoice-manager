@@ -58,6 +58,8 @@ export class InvoiceFormComponent implements OnInit {
 
   updatePositions(positions: InvoicePosition[]) {
     this.positionFormControl.setValue(positions);
+    //if positions are changed, we want to enable edit button to be clicked
+    this.invoiceForm.markAsDirty();
   }
 
   setFormValues(invoice?: Invoice): void {
@@ -110,7 +112,7 @@ export class InvoiceFormComponent implements OnInit {
   createInvoice(invoice: Invoice) {
     this.invoiceService.createInvoice(invoice);
     this.snackBar.open("Invoice has been created!", "SUCCESS", {duration: 2000})
-  //  this.resetForm();
+    this.resetForm();
     this.invoiceStore.refreshInvoices();
     this.setNewInvoiceNumber();
   }

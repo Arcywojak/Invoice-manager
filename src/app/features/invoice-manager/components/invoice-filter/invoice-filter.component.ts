@@ -41,21 +41,21 @@ export class InvoiceFilterComponent implements OnInit {
     this.filteredDataEmitter.emit(filteredData);
   }
 
-  doesAnyPropContainsInputValue(element: Invoice, inputValue: string) {
+  private doesAnyPropContainsInputValue(invoice: Invoice, inputValue: string) {
       return this.filterByProps.some(keyName => {
-        const elementPropValue = element[keyName as keyof Invoice]
+        const invoicePropValue = invoice[keyName as keyof Invoice]
 
-        const isStringOrNumber = this.isStringOrNumber(elementPropValue);
+        const isStringOrNumber = this.isStringOrNumber(invoicePropValue);
         if(!isStringOrNumber) {
           return false;
         }
 
-        return elementPropValue?.toString().toLocaleLowerCase().includes(inputValue);
+        return invoicePropValue?.toString().toLocaleLowerCase().includes(inputValue);
       })
   }
 
-  doesAnyDescriptionContainsInputValue(element: Invoice, inputValue: string) {
-    return element.positions.some(position => {
+  private doesAnyDescriptionContainsInputValue(invoice: Invoice, inputValue: string) {
+    return invoice.positions.some(position => {
       const positionDescValue = position.description;
 
       const isStringOrNumber = this.isStringOrNumber(positionDescValue);
@@ -67,10 +67,10 @@ export class InvoiceFilterComponent implements OnInit {
     })
   }
 
-  isStringOrNumber(val: any): boolean {
+  private isStringOrNumber(val: any): boolean {
     const isStringOrNumber = typeof(val) === "string" 
     || 
-    typeof(val) === "number";
+    !isNaN(val);
 
     if(!isStringOrNumber) { 
       return false;
