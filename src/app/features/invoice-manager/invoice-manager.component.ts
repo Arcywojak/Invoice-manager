@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { InvoiceHandlerTabIndex } from './enums/invoice-handler-tab-index.enum';
 import { InvoiceStore } from './invoice.store';
 import { ActiveInvoiceData } from './models/active-invoice-data.model';
@@ -17,7 +17,7 @@ export class InvoiceManagerComponent implements OnInit {
   activeInvoice: Invoice | null = null;
   currentIndex: InvoiceHandlerTabIndex = InvoiceHandlerTabIndex.CREATE;
 
-  constructor(private invoiceStore: InvoiceStore) { }
+  constructor(private invoiceStore: InvoiceStore, private changeDetection: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.invoiceStore.refreshInvoices();
@@ -26,9 +26,9 @@ export class InvoiceManagerComponent implements OnInit {
       if(this.activeInvoice && this.wasActiveInvoiceDeleted(data)) {
         this.activeInvoice = null;
       }
-
       this.invoices = data;
       this.filteredInvoices = data;
+      this.changeDetection.detectChanges();
     })
   }
 

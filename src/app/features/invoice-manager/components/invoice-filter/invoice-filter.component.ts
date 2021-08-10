@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter, OnInit, OnChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Invoice } from '../../models/invoice.model';
 
@@ -8,7 +8,7 @@ import { Invoice } from '../../models/invoice.model';
   styleUrls: ['./invoice-filter.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InvoiceFilterComponent implements OnInit {
+export class InvoiceFilterComponent implements OnInit, OnChanges {
 
   @Input() data: Invoice[] = [];
   @Output() filteredDataEmitter = new EventEmitter<Invoice[]>()
@@ -19,13 +19,17 @@ export class InvoiceFilterComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.filterFormControl.valueChanges.subscribe(() => {
       this.filter();
     })
   }
 
-  filter() {
+  ngOnChanges(): void {
+    this.filter();  
+  }
+
+  filter(): void {
     const inputValue = this.filterFormControl.value.toLowerCase();
 
     const filteredData = this.data.filter((element: Invoice) => {
@@ -41,7 +45,7 @@ export class InvoiceFilterComponent implements OnInit {
     this.filteredDataEmitter.emit(filteredData);
   }
 
-  private doesAnyPropContainsInputValue(invoice: Invoice, inputValue: string) {
+  private doesAnyPropContainsInputValue(invoice: Invoice, inputValue: string): boolean {
       return this.filterByProps.some(keyName => {
         const invoicePropValue = invoice[keyName as keyof Invoice]
 
@@ -54,7 +58,7 @@ export class InvoiceFilterComponent implements OnInit {
       })
   }
 
-  private doesAnyDescriptionContainsInputValue(invoice: Invoice, inputValue: string) {
+  private doesAnyDescriptionContainsInputValue(invoice: Invoice, inputValue: string): boolean {
     return invoice.positions.some(position => {
       const positionDescValue = position.description;
 

@@ -33,8 +33,10 @@ export class DeleteInvoiceButtonComponent {
     dialog.afterClosed().subscribe((shouldActionBeDone: Boolean) => {
       if(shouldActionBeDone) {
         this.invoiceService.removeInvoice(this.id);
-        this.snackBar.open("Invoice has been deleted", "SUCCESS");  
-        this.invoiceStore.refreshInvoices();
+        this.snackBar.open("Invoice has been deleted", "SUCCESS", {
+          duration: 2000
+        });  
+        this.invoiceStore.refreshInvoices(); 
       }
     })
   }
